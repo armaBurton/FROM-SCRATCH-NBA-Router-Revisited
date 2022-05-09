@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 import { useColorContext } from './context/ColorProvider';
 import fetchColorInfo from './services/fetchColor';
 import Colors from './views/Colors/Colors';
+import ColorDetail from './views/ColorDetail/ColorDetail';
 import style from './App.css';
+import Color from './views/Color/Color';
 
 export default function App() {
   const { colorArr, setColorArr, colorData, setColorData } = useColorContext();
@@ -43,6 +45,9 @@ export default function App() {
       <nav>RandoColor Generator</nav>
 
       <Switch>
+        <Route path="/colors/:r/:g/:b">
+          <ColorDetail />
+        </Route>
         <Route path="/colors">
           <Colors />
         </Route>
