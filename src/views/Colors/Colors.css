@@ -1,0 +1,5 @@
+.colorPallet {
+  width: 900px;
+  height: calc(100vh - 100px);
+  background-color: pink;
+}
