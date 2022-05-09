@@ -32,6 +32,7 @@ export default function App() {
         colorInfoArr.push(colorInfo);
       })
     );
+    console.log(colorInfoArr);
     setColorData(colorInfoArr);
   }, [colorArr]);
 
