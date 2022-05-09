@@ -1,4 +1,16 @@
 .colorCard {
   height: 300px;
   width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colorName {
+  height: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

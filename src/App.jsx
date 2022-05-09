@@ -8,6 +8,7 @@ import style from './App.css';
 export default function App() {
   const { colorArr, setColorArr, colorData, setColorData } = useColorContext();
   const history = useHistory();
+  // const [data, setData] = useState
 
   //create randomly generated array of colors
   useEffect(() => {
@@ -16,30 +17,31 @@ export default function App() {
       const r = Math.floor(Math.random() * 256);
       const g = Math.floor(Math.random() * 256);
       const b = Math.floor(Math.random() * 256);
-      const rgb = [r, g, b];
+      const rgb = { r, g, b };
       arr.push(rgb);
     }
     setColorArr(arr);
   }, []);
 
+  function promises() {}
+
   useEffect(() => {
     const colorInfoArr = [];
-    Promise.all(
-      colorArr.map(async (color) => {
-        const colorInfo = await fetchColorInfo(color);
-        setTimeout(() => {}, 200);
-
-        colorInfoArr.push(colorInfo);
-      })
-    );
-    console.log(colorInfoArr);
-    setColorData(colorInfoArr);
+    const data = async () => {
+      const array = await Promise.all(
+        colorArr.map(async (color) => {
+          return await fetchColorInfo(color);
+        })
+      );
+      setColorData(array);
+    };
+    data();
   }, [colorArr]);
 
   return (
     <main>
       <nav>RandoColor Generator</nav>
-      {/* <section className={style.colorPallet}> */}
+
       <Switch>
         <Route path="/colors">
           <Colors />
@@ -48,7 +50,6 @@ export default function App() {
           <Redirect to="/colors" />
         </Route>
       </Switch>
-      {/* </section> */}
     </main>
   );
 }

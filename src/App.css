@@ -1,7 +1,6 @@
 main {
   width: 100%;
-  height: 100vh;
-  background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+  height: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,4 +29,5 @@ nav {
     #f3a469 87%,
     #f7c978 100%
   );
+  position: fixed;
 }
