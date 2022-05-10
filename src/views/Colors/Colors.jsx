@@ -5,10 +5,10 @@ import { useEffect } from 'react';
 
 export default function Colors() {
   const { colorData } = useColorContext();
-  useEffect(() => {
-    const stateArr = sessionStorage.getItem('colorData');
-    const stateArrJson = JSON.parse(stateArr);
-  }, []);
+  // useEffect(() => {
+  //   // const stateArr = sessionStorage.getItem('colorData');
+  //   // const stateArrJson = JSON.parse(stateArr);
+  // }, []);
 
   return (
     <section className={style.colorPallet}>
@@ -18,3 +18,28 @@ export default function Colors() {
     </section>
   );
 }
+
+// useEffect(() => {
+//   let arr = [];
+//   for (let i = 0; i < 10; i++) {
+//     const r = Math.floor(Math.random() * 256);
+//     const g = Math.floor(Math.random() * 256);
+//     const b = Math.floor(Math.random() * 256);
+//     const rgb = { r, g, b };
+//     arr.push(rgb);
+//   }
+//   setColorArr(arr);
+// }, []);
+
+// useEffect(() => {
+//   const data = async () => {
+//     const array = await Promise.all(
+//       colorArr.map(async (color) => {
+//         return await fetchColorInfo(color);
+//       })
+//     );
+//     console.log(array);
+//     setColorData(array);
+//   };
+//   data();
+// }, [colorArr]);

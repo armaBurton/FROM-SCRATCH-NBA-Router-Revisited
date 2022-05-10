@@ -16,7 +16,7 @@ export default function Color({ color }) {
   }
 
   return (
-    <button onClick={handleClick} className={style.colorLink}>
+    <Link to={`/colors/${color.hex.clean}`} className={style.colorLink}>
       <section className={style.colorCard} style={colorStyle}>
         <p className={`${style.colorName} ${style.underline}`}>
           {color.name.value}
@@ -25,6 +25,6 @@ export default function Color({ color }) {
           R: {color.rgb.r} G: {color.rgb.g} B: {color.rgb.b}
         </p>
       </section>
-    </button>
+    </Link>
   );
 }
