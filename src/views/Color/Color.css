@@ -1,18 +1,32 @@
 .colorCard {
-  height: 300px;
-  width: 200px;
+  height: 200px;
+  width: 180px;
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
   text-align: center;
   flex-direction: column;
+  padding-top: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
-.colorName {
+/* .colorName {
   height: 30px;
   width: 100%;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+} */
+
+.colorLink {
+  width: auto;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  border-radius: 10px;
 }

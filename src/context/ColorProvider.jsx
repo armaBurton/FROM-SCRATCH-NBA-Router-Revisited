@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 const ColorContext = createContext();
 
@@ -6,6 +7,7 @@ export function ColorProvider({ children }) {
   const [colorArr, setColorArr] = useState([]);
   const [loading, setLoading] = useState(true);
   const [colorData, setColorData] = useState([]);
+  const [thisColor, setThisColor] = useState([]);
 
   const colorState = {
     colorArr,
@@ -14,6 +16,8 @@ export function ColorProvider({ children }) {
     setLoading,
     colorData,
     setColorData,
+    thisColor,
+    setThisColor,
   };
 
   return (

@@ -1,16 +1,17 @@
 import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { useEffect } from 'react';
 import { useColorContext } from './context/ColorProvider';
 import fetchColorInfo from './services/fetchColor';
 import Colors from './views/Colors/Colors';
 import ColorDetail from './views/ColorDetail/ColorDetail';
+import Cookies from 'universal-cookie';
 import style from './App.css';
 import Color from './views/Color/Color';
 
 export default function App() {
   const { colorArr, setColorArr, colorData, setColorData } = useColorContext();
   const history = useHistory();
-  // const [data, setData] = useState
 
   //create randomly generated array of colors
   useEffect(() => {
@@ -33,9 +34,13 @@ export default function App() {
         })
       );
       setColorData(array);
+
+      window.sessionStorage.setItem('colorData', JSON.stringify(array));
     };
+
     data();
-    history.push('/colors');
+
+    history.push('/colors', colorData);
   }, [colorArr]);
 
   return (
@@ -43,7 +48,7 @@ export default function App() {
       <nav>RandoColor Generator</nav>
 
       <Switch>
-        <Route path="/colors/:name">
+        <Route path="/colors/:hex">
           <ColorDetail />
         </Route>
         <Route path="/colors">

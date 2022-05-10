@@ -1,38 +1,55 @@
-import { useEffect } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, Redirect, Link, useHistory } from 'react-router-dom';
 import { useColorContext } from '../../context/ColorProvider';
 import style from './ColorDetail.css';
 
 export default function ColorDetail() {
-  const { name } = useParams();
-  const { colorData } = useColorContext();
-  console.log(name, colorData);
-
+  const { hex } = useParams();
+  console.log(hex);
+  const { colorData, thisColor, setThisColor } = useColorContext();
+  const history = useHistory();
+  // const [thisColor, setThisColor] = useState({});
   let currentColor = {};
-  if (colorData === []) {
-    <Redirect to="/" />;
-  } else {
-    for (let i = 0; i < colorData.length; i++) {
-      console.log(colorData[i]);
-      if (name === colorData[i].name.value) {
-        currentColor = colorData[i];
+  const [state, setState] = useState([]);
+
+  useEffect(() => {
+    const stateArr = sessionStorage.getItem('colorData');
+    const stateArrJson = JSON.parse(stateArr);
+
+    setState(stateArrJson);
+  }, []);
+
+  useEffect(() => {
+    // state.map(console.log);
+    for (let i = 0; i < state.length; i++) {
+      console.log(hex, state[i].hex.clean);
+      if (hex === state[i].hex.clean) {
+        currentColor = { ...state[i] };
       }
     }
-    const { value } = currentColor.rgb;
-    console.log(currentColor.rgb);
-    // const rgb = currentColor.rgb.value;
-  }
+  }, [state]);
 
-  // console.log(currentColor);
-  // console.log(currentColor.rgb.value);
-
-  // const colorStyle = {
-  //   background: `${rgb}`,
-  // };
+  useEffect(() => {
+    const color = { ...currentColor };
+    console.log(color.hex.clean);
+    // const colorStyle = {
+    //   background: currentColor.rgb.value,
+    //   color: currentColor.contrast.value,
+    // };
+  }, [currentColor]);
 
   return <></>;
 
-  // return <section className={style.detailSection} style={colorStyle}></section>;
+  // return (
+  //   <Link className={style.detailLink} to="/colors">
+  //     <section className={style.detailSection} style={colorStyle}>
+  //       <h1>{currentColor.name.value}</h1>
+  //       <p>
+  //         RGB: {currentColor.rgb.r} {currentColor.rgb.g} {currentColor.rgb.b}
+  //       </p>
+  //     </section>
+  //   </Link>
+  // );
 }
 
 // {
