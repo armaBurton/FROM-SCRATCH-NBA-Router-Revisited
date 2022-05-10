@@ -18,5 +18,3 @@ export default function Colors() {
     </section>
   );
 }
-
-/* <Color key={`${color.name.value}${i}`} color={color} /> */

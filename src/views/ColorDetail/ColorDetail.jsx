@@ -1,34 +1,42 @@
 import { useEffect, useState } from 'react';
-import { useParams, Redirect, Link, useHistory } from 'react-router-dom';
-import { useColorContext } from '../../context/ColorProvider';
+import {
+  useParams,
+  Redirect,
+  Link,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import style from './ColorDetail.css';
 import dummyData from './dummyData';
 
 export default function ColorDetail() {
+  const history = useHistory();
   const { hex } = useParams();
   console.log(hex);
   const [currentColor, setCurrentColor] = useState(dummyData);
-  const [state, setState] = useState([]);
+  // const [state, setState] = useState([]);
   const [colorStyle, setColorStyle] = useState({});
+  const pathname = history.location.pathname;
+  let stateArrJson = [];
+  let css = {};
 
   useEffect(() => {
     const stateArr = sessionStorage.getItem('colorData');
-    const stateArrJson = JSON.parse(stateArr);
-
-    setState(stateArrJson);
+    stateArrJson = JSON.parse(stateArr);
+    console.log(stateArrJson);
+    // setState(stateArrJson);
   }, []);
 
+  // console.log(pathname, state);
+
   useEffect(() => {
-    // state.map(console.log);
-    for (let i = 0; i < state.length; i++) {
-      console.log(hex, state[i].hex.clean);
-      if (hex === state[i].hex.clean) {
-        setCurrentColor({ ...state[i] });
+    for (let i = 0; i < stateArrJson.length; i++) {
+      // console.log(hex, state[i].hex.clean);
+      if (hex === stateArrJson[i].hex.clean) {
+        setCurrentColor({ ...stateArrJson[i] });
       }
     }
-  }, [state]);
-
-  console.log(currentColor);
+  }, [stateArrJson]);
 
   useEffect(() => {
     setColorStyle({
@@ -38,17 +46,19 @@ export default function ColorDetail() {
   }, [currentColor]);
 
   console.log(colorStyle);
-
-  // return <></>;
+  function handleClick(e) {
+    e.preventDefault();
+    history.push('/colors');
+  }
 
   return (
-    <Link className={style.detailLink} to="/colors">
-      <section className={style.detailSection} style={colorStyle}>
-        <h1>{currentColor.name.value}</h1>
-        <p>
-          RGB: {currentColor.rgb.r} {currentColor.rgb.g} {currentColor.rgb.b}
-        </p>
-      </section>
-    </Link>
+    // <Link className={style.detailLink} to="/colors">
+    <section className={style.detailSection} style={css} onClick={handleClick}>
+      <h1>{currentColor.name.value}</h1>
+      <p>
+        RGB: {currentColor.rgb.r} {currentColor.rgb.g} {currentColor.rgb.b}
+      </p>
+    </section>
+    // </Link>
   );
 }

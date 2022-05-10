@@ -11,8 +11,8 @@ export default function Color({ color }) {
 
   function handleClick(e) {
     e.preventDefault();
-    console.log('click');
-    history.push(`/colors/${color.hex.clean}`, color);
+
+    history.push(`/colors/${color.hex.clean}`);
   }
 
   return (
@@ -28,5 +28,3 @@ export default function Color({ color }) {
     </button>
   );
 }
-//sawsassafra0l
-// to={`/colors/${color.name.value}/${color.rgb.r}/${color.rgb.g}/${color.rgb.b}`}

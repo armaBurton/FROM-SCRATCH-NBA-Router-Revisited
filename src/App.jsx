@@ -1,6 +1,13 @@
-import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useColorContext } from './context/ColorProvider';
 import fetchColorInfo from './services/fetchColor';
 import Colors from './views/Colors/Colors';
@@ -11,6 +18,7 @@ import Color from './views/Color/Color';
 
 export default function App() {
   const { colorArr, setColorArr, colorData, setColorData } = useColorContext();
+  const [search, setSearch] = useState();
   const history = useHistory();
 
   //create randomly generated array of colors
@@ -43,9 +51,30 @@ export default function App() {
     history.push('/colors', colorData);
   }, [colorArr]);
 
+  function handleRefresh(e) {
+    e.preventDefault();
+    location.reload();
+  }
+
   return (
     <main>
-      <nav>RandoColor Generator</nav>
+      <nav>
+        <h1 className={style.title}>RandoColor Generator</h1>
+        <div className={style.interactions}>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="search"
+              id="search"
+              type="text"
+              data-testId="search"
+              placeholder="rgb values, ie: 123, 217, 13"
+            />
+          </form>
+          <button onClick={handleRefresh} className={style.refreshColors}>
+            Refresh Colors
+          </button>
+        </div>
+      </nav>
 
       <Switch>
         <Route path="/colors/:hex">
@@ -54,7 +83,7 @@ export default function App() {
         <Route path="/colors">
           <Colors />
         </Route>
-        <Route path="/">{/* d<Reirect to="/colors" /> */}</Route>
+        <Route path="/">{history.push('/colors')}</Route>
       </Switch>
     </main>
   );

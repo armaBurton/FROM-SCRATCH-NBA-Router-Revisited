@@ -1,8 +1,8 @@
 .colorPallet {
-  margin-top: 100px;
+  margin-top: 200px;
   width: 960px;
   /* height: 1100px; */
-  background-color: pink;
+  /* background-color: pink; */
   padding: 25px;
   display: flex;
   flex-wrap: wrap;

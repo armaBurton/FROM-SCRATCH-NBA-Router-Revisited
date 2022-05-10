@@ -7,7 +7,7 @@ main {
 }
 
 nav {
-  height: 100px;
+  height: 200px;
   width: 100%;
   background-color: ghostwhite;
   color: red;
@@ -17,6 +17,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-image: linear-gradient(
     to top,
     #3f51b1 0%,
@@ -30,4 +31,25 @@ nav {
     #f7c978 100%
   );
   position: fixed;
+  gap: 5px;
+}
+
+.interactions {
+  display: flex;
+  gap: 20px;
+}
+
+.refreshColors {
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: yellow;
+}
+
+.refreshColors:hover {
+  background-color: cyan;
+}
+
+.refreshColors:active {
+  background-color: red;
+  color: white;
 }

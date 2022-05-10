@@ -10,14 +10,9 @@
   cursor: pointer;
 }
 
-/* .colorName {
-  height: 30px;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
+.colorCard:hover {
+  box-shadow: 0 0 10px fuchsia;
+}
 
 .colorLink {
   width: auto;
