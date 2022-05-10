@@ -25,10 +25,7 @@ export default function App() {
     setColorArr(arr);
   }, []);
 
-  function promises() {}
-
   useEffect(() => {
-    const colorInfoArr = [];
     const data = async () => {
       const array = await Promise.all(
         colorArr.map(async (color) => {
@@ -38,6 +35,7 @@ export default function App() {
       setColorData(array);
     };
     data();
+    history.push('/colors');
   }, [colorArr]);
 
   return (
@@ -45,15 +43,13 @@ export default function App() {
       <nav>RandoColor Generator</nav>
 
       <Switch>
-        <Route path="/colors/:r/:g/:b">
+        <Route path="/colors/:name">
           <ColorDetail />
         </Route>
         <Route path="/colors">
           <Colors />
         </Route>
-        <Route path="/">
-          <Redirect to="/colors" />
-        </Route>
+        <Route path="/">{/* d<Reirect to="/colors" /> */}</Route>
       </Switch>
     </main>
   );

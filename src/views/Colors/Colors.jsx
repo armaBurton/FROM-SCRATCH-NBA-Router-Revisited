@@ -4,7 +4,6 @@ import Color from '../Color/Color';
 
 export default function Colors() {
   const { colorData } = useColorContext();
-  console.log(colorData);
 
   return (
     <section className={style.colorPallet}>
