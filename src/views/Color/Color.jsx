@@ -7,8 +7,6 @@ export default function Color({ color }) {
     color: `${color.contrast.value}`,
   };
 
-  console.log(color);
-
   return (
     <Link to={`/colors/${color.hex.clean}`} className={style.colorLink}>
       <section className={style.colorCard} style={colorStyle}>
