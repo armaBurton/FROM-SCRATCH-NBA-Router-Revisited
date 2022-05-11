@@ -1,32 +1,13 @@
 import { useEffect, useState } from 'react';
-import {
-  useParams,
-  Redirect,
-  Link,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import style from './ColorDetail.css';
 import { useColorContext } from '../../context/ColorProvider';
-import dummyData from './dummyData';
 
 export default function ColorDetail() {
-  const { colorData, url, setUrl, thisColor, setThisColor } = useColorContext();
+  const { thisColor, setThisColor } = useColorContext();
   const history = useHistory();
   const { hex } = useParams();
-  const [currentColor, setCurrentColor] = useState(dummyData);
   const [colorStyle, setColorStyle] = useState({});
-  const pathname = history.location.pathname;
-  const location = useLocation();
-  location.state = pathname;
-
-  // if (thisColor.length === 0) setThisColor(hex);
-  setUrl(pathname);
-
-  useEffect(() => {
-    const found = colorData.find((color) => color.hex.clean === hex);
-    setCurrentColor(found);
-  }, []);
 
   useEffect(() => {
     const fetchHex = async () => {
@@ -41,7 +22,15 @@ export default function ColorDetail() {
   const [r, setR] = useState('');
   const [g, setG] = useState('');
   const [b, setB] = useState('');
+  const [c, setC] = useState('');
+  const [m, setM] = useState('');
+  const [y, setY] = useState('');
+  const [k, setK] = useState('');
+  const [h, setH] = useState('');
+  const [s, setS] = useState('');
+  const [l, setL] = useState('');
   const [name, setName] = useState('');
+  const [hexValue, setHexValue] = useState('');
 
   useEffect(() => {
     const hexStyle = async () => {
@@ -52,7 +41,15 @@ export default function ColorDetail() {
       setR(thisColor.rgb.r);
       setG(thisColor.rgb.g);
       setB(thisColor.rgb.b);
+      setC(thisColor.cmyk.c);
+      setM(thisColor.cmyk.m);
+      setY(thisColor.cmyk.y);
+      setK(thisColor.cmyk.k);
+      setH(thisColor.hsl.h);
+      setS(thisColor.hsl.s);
+      setL(thisColor.hsl.l);
       setName(thisColor.name.value);
+      setHexValue(thisColor.hex.value);
     };
     hexStyle();
   }, [thisColor]);
@@ -61,20 +58,24 @@ export default function ColorDetail() {
     e.preventDefault();
     history.push('/colors');
   }
-  console.log(currentColor.name.value);
 
   return (
-    // <Link className={style.detailLink} to={handleClick}>
     <section
       className={style.detailSection}
       style={colorStyle}
       onClick={handleClick}
     >
       <h1>{name}</h1>
+      <p>HEX: {hexValue}</p>
       <p>
         RGB: {r} {g} {b}
       </p>
+      <p>
+        CMYK: {c} {m} {y} {k}
+      </p>
+      <p>
+        HSL: {h} {s} {l}
+      </p>
     </section>
-    // </Link>
   );
 }
