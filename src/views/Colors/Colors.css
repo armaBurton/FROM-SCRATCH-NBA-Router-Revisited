@@ -1,5 +1,13 @@
 .colorPallet {
-  width: 900px;
-  height: calc(100vh - 100px);
-  background-color: pink;
+  margin-top: 200px;
+  width: 960px;
+  /* height: 1100px; */
+  /* background-color: pink; */
+  padding: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+  gap: 25px;
 }

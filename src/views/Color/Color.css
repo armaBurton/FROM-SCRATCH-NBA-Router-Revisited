@@ -1,4 +1,28 @@
 .colorCard {
-  height: 300px;
-  width: 200px;
+  height: 200px;
+  width: 180px;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+  flex-direction: column;
+  padding-top: 10px;
+  border-radius: 10px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.colorCard:hover {
+  box-shadow: 0 0 10px fuchsia;
+}
+
+.colorLink {
+  width: auto;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  border-radius: 10px;
 }

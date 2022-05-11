@@ -1,53 +1,61 @@
-import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useColorContext } from './context/ColorProvider';
-import fetchColorInfo from './services/fetchColor';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import Colors from './views/Colors/Colors';
+import ColorDetail from './views/ColorDetail/ColorDetail';
 import style from './App.css';
+import { useState } from 'react';
 
 export default function App() {
-  const { colorArr, setColorArr, colorData, setColorData } = useColorContext();
   const history = useHistory();
+  const [search, setSearch] = useState();
 
-  //create randomly generated array of colors
-  useEffect(() => {
-    let arr = [];
-    for (let i = 0; i < 10; i++) {
-      const r = Math.floor(Math.random() * 256);
-      const g = Math.floor(Math.random() * 256);
-      const b = Math.floor(Math.random() * 256);
-      const rgb = [r, g, b];
-      arr.push(rgb);
-    }
-    setColorArr(arr);
-  }, []);
+  function handleRefresh(e) {
+    e.preventDefault();
+    location.reload();
+  }
 
-  useEffect(() => {
-    const colorInfoArr = [];
-    Promise.all(
-      colorArr.map(async (color) => {
-        const colorInfo = await fetchColorInfo(color);
-        setTimeout(() => {}, 200);
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(search);
+    history.push(`/colors/${search}`);
+  }
 
-        colorInfoArr.push(colorInfo);
-      })
-    );
-    setColorData(colorInfoArr);
-  }, [colorArr]);
+  function handleChange(e) {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
 
   return (
     <main>
-      <nav>RandoColor Generator</nav>
-      {/* <section className={style.colorPallet}> */}
+      <nav>
+        <h1 className={style.title}>RandoColor Generator</h1>
+        <div className={style.interactions}>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="search">Search by Hex</label>
+            <input
+              name="search"
+              id="search"
+              type="text"
+              // data-testId="search"
+              placeholder="#152fa3"
+              value={search}
+              onChange={handleChange}
+            />
+          </form>
+          <button onClick={handleRefresh} className={style.refreshColors}>
+            Refresh Colors
+          </button>
+        </div>
+      </nav>
+
       <Switch>
+        <Route path="/colors/:hex">
+          <ColorDetail />
+        </Route>
         <Route path="/colors">
           <Colors />
         </Route>
-        <Route path="/">
-          <Redirect to="/colors" />
-        </Route>
+        <Route path="/">{history.push('/colors')}</Route>
       </Switch>
-      {/* </section> */}
     </main>
   );
 }

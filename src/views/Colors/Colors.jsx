@@ -7,9 +7,9 @@ export default function Colors() {
 
   return (
     <section className={style.colorPallet}>
-      {colorData.map((color) => console.log(color))}
+      {colorData.map((color, i) => (
+        <Color key={`${color}${i}`} color={color} />
+      ))}
     </section>
   );
 }
-
-/* <Color key={`${color.name.value}${i}`} color={color} /> */
