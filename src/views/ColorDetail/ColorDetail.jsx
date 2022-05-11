@@ -65,7 +65,7 @@ export default function ColorDetail() {
       style={colorStyle}
       onClick={handleClick}
     >
-      <h1>{name}</h1>
+      <h1 className={style.detailName}>{name}</h1>
       <p>HEX: {hexValue}</p>
       <p>
         RGB: {r} {g} {b}
