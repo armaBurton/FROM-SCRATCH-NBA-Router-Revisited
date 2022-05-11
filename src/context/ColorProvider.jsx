@@ -10,8 +10,8 @@ export function ColorProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [colorData, setColorData] = useState([]);
   const [thisColor, setThisColor] = useState([]);
-  const [cookie, setCookie] = useState({});
-  const [state, setState] = useState();
+  // const [cookie, setCookie] = useState({});
+  const [url, setUrl] = useState({});
 
   useEffect(() => {
     let arr = [];
@@ -26,6 +26,7 @@ export function ColorProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    console.log(thisColor);
     const data = async () => {
       const array = await Promise.all(
         colorArr.map(async (color) => {
@@ -33,6 +34,10 @@ export function ColorProvider({ children }) {
         })
       );
       setColorData(array);
+      window.sessionStorage.setItem('colorData', JSON.stringify(colorData));
+      const cookie = sessionStorage.getItem('colorData');
+      const cookieData = JSON.parse(cookie);
+      console.log(cookieData);
     };
     data();
 
@@ -62,7 +67,6 @@ export function ColorProvider({ children }) {
     // setColorData(cookie);
     // }
   }, [colorArr]);
-  console.log(colorData);
 
   const colorState = {
     colorArr,
@@ -73,6 +77,8 @@ export function ColorProvider({ children }) {
     setColorData,
     thisColor,
     setThisColor,
+    url,
+    setUrl,
   };
 
   return (

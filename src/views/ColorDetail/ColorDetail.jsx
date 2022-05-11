@@ -11,7 +11,7 @@ import { useColorContext } from '../../context/ColorProvider';
 import dummyData from './dummyData';
 
 export default function ColorDetail() {
-  const { colorData } = useColorContext();
+  const { colorData, url, setUrl, thisColor, setThisColor } = useColorContext();
   const history = useHistory();
   const { hex } = useParams();
   const [currentColor, setCurrentColor] = useState(dummyData);
@@ -19,36 +19,49 @@ export default function ColorDetail() {
   const pathname = history.location.pathname;
   const location = useLocation();
   location.state = pathname;
-  console.log(location);
 
-  // useEffect(() => {
-  //   const stateArr = sessionStorage.getItem('colorData');
-  //   stateArrJson = JSON.parse(stateArr);
-
-  //   setState(stateArrJson);
-  // }, []);
+  // if (thisColor.length === 0) setThisColor(hex);
+  setUrl(pathname);
 
   useEffect(() => {
-    for (let i = 0; i < colorData.length; i++) {
-      if (hex === colorData[i].hex.clean) {
-        setCurrentColor({ ...colorData[i] });
-      }
-    }
+    const found = colorData.find((color) => color.hex.clean === hex);
+    setCurrentColor(found);
   }, []);
 
-  console.log(currentColor);
+  useEffect(() => {
+    const fetchHex = async () => {
+      const hexData = await fetch(`https://www.thecolorapi.com/id?hex=${hex}`);
+      const hexDataJson = await hexData.json();
+
+      await setThisColor({ ...hexDataJson });
+    };
+    fetchHex();
+  }, []);
+
+  const [r, setR] = useState('');
+  const [g, setG] = useState('');
+  const [b, setB] = useState('');
+  const [name, setName] = useState('');
 
   useEffect(() => {
-    setColorStyle({
-      background: currentColor.rgb.value,
-      color: currentColor.contrast.value,
-    });
-  }, [currentColor]);
+    const hexStyle = async () => {
+      setColorStyle({
+        background: await thisColor.rgb.value,
+        color: await thisColor.contrast.value,
+      });
+      setR(thisColor.rgb.r);
+      setG(thisColor.rgb.g);
+      setB(thisColor.rgb.b);
+      setName(thisColor.name.value);
+    };
+    hexStyle();
+  }, [thisColor]);
 
   function handleClick(e) {
     e.preventDefault();
     history.push('/colors');
   }
+  console.log(currentColor.name.value);
 
   return (
     // <Link className={style.detailLink} to={handleClick}>
@@ -57,9 +70,9 @@ export default function ColorDetail() {
       style={colorStyle}
       onClick={handleClick}
     >
-      <h1>{currentColor.name.value}</h1>
+      <h1>{name}</h1>
       <p>
-        RGB: {currentColor.rgb.r} {currentColor.rgb.g} {currentColor.rgb.b}
+        RGB: {r} {g} {b}
       </p>
     </section>
     // </Link>

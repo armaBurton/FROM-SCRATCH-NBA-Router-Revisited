@@ -6,8 +6,9 @@ import { useEffect } from 'react';
 export default function Colors() {
   const { colorData } = useColorContext();
   // useEffect(() => {
-  //   // const stateArr = sessionStorage.getItem('colorData');
-  //   // const stateArrJson = JSON.parse(stateArr);
+  //   const stateArr = sessionStorage.getItem('colorData');
+  //   const stateArrJson = JSON.parse(stateArr);
+  //   console.log(stateArrJson);
   // }, []);
 
   return (
