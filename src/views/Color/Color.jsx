@@ -1,4 +1,4 @@
-import style from './color.css';
+import style from './Color.css';
 import { Link } from 'react-router-dom';
 
 export default function Color({ color }) {
