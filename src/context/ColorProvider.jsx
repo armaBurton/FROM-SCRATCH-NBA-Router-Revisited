@@ -10,20 +10,33 @@ export function ColorProvider({ children }) {
   const [thisColor, setThisColor] = useState([]);
   const [url, setUrl] = useState({});
 
+  // setColorData(colorListJson);
+
   useEffect(() => {
-    let arr = [];
-    for (let i = 0; i < 10; i++) {
-      const r = Math.floor(Math.random() * 256);
-      const g = Math.floor(Math.random() * 256);
-      const b = Math.floor(Math.random() * 256);
-      const rgb = { r, g, b };
-      arr.push(rgb);
+    const colorList = localStorage.getItem('colorData');
+    console.log(`|| colorList >`, colorList);
+    const colorListJson = JSON.parse(colorList);
+    console.log(`|| colorListJson >`, colorListJson);
+    if (!colorList) {
+      let arr = [];
+      for (let i = 0; i < 10; i++) {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        const rgb = { r, g, b };
+        arr.push(rgb);
+      }
+      localStorage.setItem('colorData', JSON.stringify(arr));
+      setColorArr(arr);
+    } else {
+      setColorArr(colorListJson);
     }
-    setColorArr(arr);
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     console.log(thisColor);
+    console.log(`|| colorArr >`, colorArr);
     const data = async () => {
       const array = await Promise.all(
         colorArr.map(async (color) => {
@@ -31,11 +44,8 @@ export function ColorProvider({ children }) {
         })
       );
       setColorData(array);
-      window.sessionStorage.setItem('colorData', JSON.stringify(colorData));
-      const cookie = sessionStorage.getItem('colorData');
-      const cookieData = JSON.parse(cookie);
-      console.log(cookieData);
     };
+    setLoading(false);
     data();
   }, [colorArr]);
 

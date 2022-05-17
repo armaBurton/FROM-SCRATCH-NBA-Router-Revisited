@@ -6,10 +6,11 @@ import { useState } from 'react';
 
 export default function App() {
   const history = useHistory();
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState('');
 
   function handleRefresh(e) {
     e.preventDefault();
+    localStorage.clear();
     location.reload();
   }
 
@@ -29,14 +30,14 @@ export default function App() {
       <nav>
         <h1 className={style.title}>RandoColor Generator</h1>
         <div className={style.interactions}>
-          <form onSubmit={handleSubmit}>
+          <form role="form" onSubmit={handleSubmit}>
             <label htmlFor="search">Search by Hex</label>
             <input
               name="search"
               id="search"
               type="text"
               // data-testId="search"
-              placeholder="#152fa3"
+              placeholder="123def"
               value={search}
               onChange={handleChange}
             />

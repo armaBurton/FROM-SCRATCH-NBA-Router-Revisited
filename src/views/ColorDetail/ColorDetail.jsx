@@ -36,7 +36,7 @@ export default function ColorDetail() {
     const hexStyle = async () => {
       setColorStyle({
         background: await thisColor.rgb.value,
-        color: await thisColor.contrast.value,
+        color: await thisColor.contrast?.value,
       });
       setR(thisColor.rgb.r);
       setG(thisColor.rgb.g);
