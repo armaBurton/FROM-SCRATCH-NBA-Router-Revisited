@@ -14,7 +14,9 @@ export function ColorProvider({ children }) {
 
   useEffect(() => {
     const colorList = localStorage.getItem('colorData');
+    console.log(`|| colorList >`, colorList);
     const colorListJson = JSON.parse(colorList);
+    console.log(`|| colorListJson >`, colorListJson);
     if (!colorList) {
       let arr = [];
       for (let i = 0; i < 10; i++) {
@@ -33,7 +35,8 @@ export function ColorProvider({ children }) {
 
   useEffect(() => {
     setLoading(true);
-
+    console.log(thisColor);
+    console.log(`|| colorArr >`, colorArr);
     const data = async () => {
       const array = await Promise.all(
         colorArr.map(async (color) => {
