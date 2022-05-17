@@ -37,7 +37,7 @@ export default function App() {
               id="search"
               type="text"
               // data-testId="search"
-              placeholder="#152fa3"
+              placeholder="123def"
               value={search}
               onChange={handleChange}
             />

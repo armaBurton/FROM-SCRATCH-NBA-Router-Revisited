@@ -3,13 +3,17 @@ import style from './Colors.css';
 import Color from '../Color/Color';
 
 export default function Colors() {
-  const { colorData } = useColorContext();
+  const { colorData, loading } = useColorContext();
 
   return (
     <section className={style.colorPallet}>
-      {colorData.map((color, i) => (
-        <Color key={`${color}${i}`} color={color} />
-      ))}
+      {loading ? (
+        <h1>LOADING!</h1>
+      ) : (
+        colorData.map((color, i) => (
+          <Color key={`${color}${i}`} color={color} />
+        ))
+      )}
     </section>
   );
 }

@@ -54,8 +54,6 @@ export default function ColorDetail() {
     hexStyle();
   }, [thisColor]);
 
-  console.log(`|| colorStyle >`, colorStyle.color);
-
   function handleClick(e) {
     e.preventDefault();
     history.push('/colors');
