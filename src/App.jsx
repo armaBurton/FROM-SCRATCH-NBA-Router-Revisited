@@ -10,6 +10,7 @@ export default function App() {
 
   function handleRefresh(e) {
     e.preventDefault();
+    localStorage.clear();
     location.reload();
   }
 
